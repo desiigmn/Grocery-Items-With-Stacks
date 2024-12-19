@@ -1,67 +1,48 @@
-const groceryStack = []; 
+let groceryStack = [];
 
 function peek() {
   if (groceryStack.length === 0) {
-    alert("Stack is empty.");
-    return undefined;
+    alert("The stack is empty.");
+  } else {
+    alert("Top item in the stack: " + groceryStack[groceryStack.length - 1]);
   }
-  alert("Top item: " + groceryStack[groceryStack.length - 1]);
-  return groceryStack[groceryStack.length - 1];
 }
 
 function push() {
-  const item = prompt("Enter an item to push onto the stack:");
-  if (item === null) {
-    alert("Push operation cancelled.");
-    return;
-  }
-  if (item.trim()) {
-    groceryStack.push(item.trim());
-    alert("Pushed: " + item + "\nCurrent Stack: " + groceryStack.join(", "));
+  let item = prompt("Enter a grocery item to add:");
+  if (item) {
+    groceryStack.push(item);
+    console.log("Item added: " + item);
+    console.log("Updated Stack:", groceryStack);
+    alert("Item added: " + item + "\nUpdated Stack: " + groceryStack.join(", "));
   } else {
-    alert("No item entered. Nothing was pushed.");
+    alert("No item entered. Please try again.");
   }
 }
 
 function pop() {
   if (groceryStack.length === 0) {
-    alert("Stack is empty. Nothing to pop.");
-    return;
+    alert("The stack is empty. No item to remove.");
+  } else {
+    const removedItem = groceryStack.pop();
+    console.log("Item removed: " + removedItem);
+    console.log("Updated Stack:", groceryStack);
+    alert("Item removed: " + removedItem + "\nUpdated Stack: " + groceryStack.join(", "));
   }
-  const poppedItem = groceryStack.pop();
-  alert("Popped: " + poppedItem + "\nCurrent Stack: " + groceryStack.join(", "));
-  return poppedItem;
 }
 
 function main() {
-  let option;
-  do {
-    option = prompt(
-      "Choose an option:\n1. Push item\n2. Pop item\n3. Peek top item\n4. Exit\nEnter the number of your choice:"
-    );
-
-    if (option === null) {
-      alert("Program cancelled.");
-      return;
+  for (let i = 0; i < 5; i++) {
+    let item = prompt(`Enter grocery item ${i + 1}:`);
+    if (item) {
+      groceryStack.push(item);
+      console.log("Item added: " + item);
+    } else {
+      alert("No item entered. Please try again.");
+      i--; 
     }
+  }
 
-    switch (option) {
-      case "1":
-        push();
-        break;
-      case "2":
-        pop();
-        break;
-      case "3":
-        peek();
-        break;
-      case "4":
-        alert("Exiting the program.\nFinal Stack: " + groceryStack.join(", "));
-        break;
-      default:
-        alert("Invalid option. Please enter 1, 2, 3, or 4.");
-    }
-  } while (option !== "4");
+  alert("Initial Stack: " + groceryStack.join(", "));
+  console.log("Initial Stack:", groceryStack);
 }
-
-main(); 
